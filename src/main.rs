@@ -1,17 +1,16 @@
 mod perceptron;
 mod types;
 mod utils;
+mod formulas;
 
 use types::PerceptronInputData;
 use types::TrainingData;
 use perceptron::perceptron;
 
 fn main() {
-    let x = vec![[0,1],[0,0],[1,0],[1,1]];
-    let y  = vec![0,1,0,1];
     let training = TrainingData{
-        x: x,
-        y: y,
+        x: vec![[0,1],[0,0],[1,0],[1,1]],
+        y: vec![0,1,0,1],
     };
 
     let percetron_input = PerceptronInputData{

@@ -1,4 +1,4 @@
-use crate::utils::{flat_vec};
+use crate::utils::{flat_vec, scalar_product};
 use crate::types::PerceptronInputData;
 use crate::types::TrainingData;
 use crate::formulas::{prediction_formula, PredictionInput, PredictionOutput};
@@ -18,7 +18,6 @@ pub fn perceptron(input:PerceptronInputData){
     let learning_curve = init_learning_curve;
     let mut bias = 0.0;
     
-    let x_flatted = flat_vec(x);
     let mut total_error = 0.0;
 
     let mut error_sentinel = true;
@@ -26,20 +25,20 @@ pub fn perceptron(input:PerceptronInputData){
 
     while error_sentinel {
         for _epoch in 0..=epochs {
-            for (index,x_i) in x_flatted.iter().enumerate() {
+            for (index,x_i) in x.iter().enumerate() {
                 let y_i = y[index];
-                let weight:f32 = weights[index];
-                let z = weight * x_i + bias;
+                let x_i_vec= x_i.to_vec();
+                let z = scalar_product(&weights, &x_i_vec) + bias;
 
                 let y_pred = if z >= 0.0 {1} else {-1};
 
                 let prediction_input = PredictionInput{
-                    weight: weight,
+                    weights: &mut weights,
                     error:y_i - y_pred as f32,
                     total_error:total_error,
                     bias:bias,
                     learning_curve:learning_curve,
-                    x_data:*x_i
+                    x_data:x_i_vec
                 };
 
                 let output_prediction = prediction_formula(prediction_input);

@@ -1,20 +1,14 @@
 //funzione decisionale
-pub struct PredictionInput{
+pub struct PredictionInput<'a>{
     pub error:f32,
-    pub bias:f32,
-    pub total_error:f32,
-    pub weights:&mut[f32],
-    pub learning_curve:f32,
-    pub x_data:Vec<f32>
+    pub x_data:Vec<f32>,
+    pub learning_curve: f32,
+    pub bias:&'a mut f32,
+    pub total_error:&'a mut f32,
+    pub weights:&'a mut[f32]
 }
 
-pub struct PredictionOutput{
-    pub new_weights:f32,
-    pub next_bias:f32,
-    pub next_total_error:f32,
-}
-
-pub fn prediction_formula (input: PredictionInput) -> Option<PredictionOutput> {
+pub fn prediction_formula (input: PredictionInput) {
     let PredictionInput { 
         error, 
         bias, 
@@ -24,19 +18,11 @@ pub fn prediction_formula (input: PredictionInput) -> Option<PredictionOutput> {
         x_data
     } = input;
 
-    let mut new_weights =
     if error != 0.0 {
-         for (index, value) in x_data.iter().enumerate(){
-             = weights[index] + learning_curve       
+        for (index, value) in x_data.iter().enumerate(){
+            weights[index] = weights[index] + learning_curve *error * value;
         }
-        Some(PredictionOutput {
-           
-            next_weights : weights + learning_curve * error * x_data,
-            next_bias : bias + learning_curve * error,
-            next_total_error : total_error + 1.0
-        })
-    }
-    else {
-        None
+        *bias += learning_curve * error;
+        *total_error += 1.0; 
     }
 }    

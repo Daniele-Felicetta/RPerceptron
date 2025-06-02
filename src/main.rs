@@ -12,19 +12,29 @@ use utils::{ONE,ZERO};
 
 fn main() {
     let training = TrainingData{
-        x: vec![[ZERO,ONE],[ZERO,ZERO],[ONE,ZERO],[ONE,ONE]],
-        y:vec![ZERO,ZERO,ZERO,ONE],
+        x: vec![
+            [0.0, 0.0],
+            [0.0, 1.0],
+            [1.0, 0.0],
+            [1.0, 1.0],
+        ],
+        y: vec![
+            -1.0,  
+            1.0, 
+            1.0,  
+            1.0, 
+        ]
     };
-    let y_length = training.y.len();
+    let y_length = training.x[0].len();
+
+    let init_weigths=populate_weights(y_length);
 
     let percetron_input = PerceptronInputData{
         training_data: training,
-        init_learning_curve: 0.05,
+        init_learning_curve: 0.1,
         epochs: 10,
-        init_weights: vec![ZERO,ZERO,ZERO,ZERO]
+        init_weights: init_weigths
     };
-
-    populate_weights(y_length);
 
     perceptron(percetron_input);
 }

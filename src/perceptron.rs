@@ -38,4 +38,27 @@ pub fn perceptron(input:PerceptronInputData){
             prediction_formula(prediction_input);
         }  
     }
+
+    println!("--- ALLENAMENTO COMPLETATO ---");
+    println!("Pesi finali: {:?}", weights);
+    println!("Bias finale: {}", bias);
+
+    println!("--- PREVISIONI FINALI ---");
+    for (index, x_i) in x.iter().enumerate() {
+        let z = scalar_product(&weights, &x_i.to_vec()) + bias;
+        let y_pred = if z >= 0.0 { 1 } else { -1 };
+        println!("Esempio {}: input = {:?}, predizione = {}, atteso = {}", 
+                index, x_i, y_pred, y[index]);
+    }
+
+    let mut correct = 0;
+    for (index, x_i) in x.iter().enumerate() {
+        let z = scalar_product(&weights, &x_i.to_vec()) + bias;
+        let y_pred = if z >= 0.0 { 1.0 } else { -1.0 };  // y è f32
+        if y_pred == y[index] {
+            correct += 1;
+        }
+    }
+    let accuracy = (correct as f32 / y.len() as f32) * 100.0;
+    println!("Accuracy finale: {:.2}%", accuracy);
 }

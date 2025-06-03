@@ -1,4 +1,5 @@
-//funzione decisionale
+use crate::utils::ZERO;
+
 pub struct PredictionInput<'a>{
     pub error:f32,
     pub x_data:Vec<f32>,
@@ -26,3 +27,13 @@ pub fn prediction_formula (input: PredictionInput) {
         *total_error += 1.0; 
     }
 }    
+
+pub fn scalar_product(w:&[f32], x:&[f32]) -> f32{
+    let mut result = ZERO;
+    for (index,w_i) in w.iter().enumerate() {
+        let x_i = x[index];
+        result = result + x_i * w_i;
+    }  
+
+    return result;
+}

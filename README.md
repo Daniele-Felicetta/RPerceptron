@@ -36,15 +36,12 @@ $$
 w_j := w_j + \Delta w_j
 $$
 
-[Aggiornamento dei pesi](https://www.notion.so/Aggiornamento-dei-pesi-1fabc6e1df02807793efd7c8d206969b?pvs=21)
-
 ### Aggiornamento dei bias
 
 $$
 b:=b+η(y−ŷ)
 $$
 
-[**Iperpiano come “parete” tra due classi**](https://www.notion.so/Iperpiano-come-parete-tra-due-classi-1ffbc6e1df02807eb8cfe7d4beb4c804?pvs=21)
 
 ## Pseudocodice del Perceptron
 

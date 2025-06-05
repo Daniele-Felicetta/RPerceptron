@@ -30,8 +30,7 @@ pub fn prediction_formula (input: PredictionInput) {
 
 pub fn scalar_product(w:&[f32], x:&[f32]) -> f32{
     let mut result = ZERO;
-    for (index,w_i) in w.iter().enumerate() {
-        let x_i = x[index];
+    for (w_i,x_i) in w.iter().zip(x.iter()) {
         result = result + x_i * w_i;
     }  
 
